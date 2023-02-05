@@ -1,0 +1,15 @@
+---
+import type { MarkdownLayoutProps } from "astro";
+import type { CollectionEntry } from "astro:content";
+import Layout from "./Layout.astro"
+
+const { frontmatter, headings } = Astro.props as MarkdownLayoutProps<
+  CollectionEntry<"blog">["data"]
+>;
+
+const { title, url, description } = frontmatter;
+---
+<Layout title={title} >
+<p>{url}</p>
+<p>{description}</p>
+</Layout>
