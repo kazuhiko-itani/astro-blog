@@ -2,14 +2,16 @@
 import type { MarkdownLayoutProps } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Layout from "./Layout.astro"
+import {formatDate} from "../utils/date"
 
-const { frontmatter, headings } = Astro.props as MarkdownLayoutProps<
+const { frontmatter } = Astro.props as MarkdownLayoutProps<
   CollectionEntry<"blog">["data"]
 >;
 
-const { title, url, description } = frontmatter;
+const { title, url, description, date } = frontmatter;
+const formattedDate = formatDate()
 ---
 <Layout title={title} >
-<p>{url}</p>
-<p>{description}</p>
+    {formattedDate}
+<slot />
 </Layout>
