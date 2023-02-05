@@ -11,7 +11,6 @@ const { frontmatter } = Astro.props as MarkdownLayoutProps<
 >;
 
 const { title, url, description, date } = frontmatter;
-console.log(url)
 const formattedDate = formatDate(new Date(date))
 const posts = await getBlogs()
 const postIndex = posts.findIndex(
@@ -27,3 +26,4 @@ const postIndex = posts.findIndex(
   next={postIndex !== 0 ? {link: posts[postIndex - 1].slug, text:posts[postIndex-1].data.title} : undefined}
   />
 </Layout>
+
