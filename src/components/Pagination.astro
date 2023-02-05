@@ -3,32 +3,17 @@ type Props = {
   prev?: {
     link: string;
     text: string;
-  }
+  };
   next?: {
     link: string;
     text: string;
-  }
+  };
 };
 
-const {
-  prev,
-  next
-} = Astro.props;
+const { prev, next } = Astro.props;
 ---
 
 <div>
-      {
-        next ? (
-          <a href={next.link}>{next.text}</a>
-        ) : (
-          <div />
-        )
-      }
-      {
-        prev ? (
-          <a href={prev.link}>{prev.text}</a>
-        ) : (
-          <div />
-        )
-      }
+  {next ? <a href={next.link}>{next.text}</a> : <div />}
+  {prev ? <a href={prev.link}>{prev.text}</a> : <div />}
 </div>
