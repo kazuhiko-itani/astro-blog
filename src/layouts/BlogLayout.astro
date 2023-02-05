@@ -2,14 +2,28 @@
 import type { MarkdownLayoutProps } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Layout from "./Layout.astro"
+import {formatDate} from "../utils/date"
+import {getBlogs} from "../utils/blog"
+import Pagination from "../components/Pagination.astro"
 
-const { frontmatter, headings } = Astro.props as MarkdownLayoutProps<
+const { frontmatter } = Astro.props as MarkdownLayoutProps<
   CollectionEntry<"blog">["data"]
 >;
 
-const { title, url, description } = frontmatter;
+const { title, url, description, date } = frontmatter;
+console.log(url)
+const formattedDate = formatDate(new Date(date))
+const posts = await getBlogs()
+const postIndex = posts.findIndex(
+  ({ slug }) =>
+    slug === url?.split("/").at(-1)?.replace(".mdx", "")
+);
 ---
 <Layout title={title} >
-<p>{url}</p>
-<p>{description}</p>
+    {formattedDate}
+<slot />
+<Pagination
+  prev={postIndex !== posts.length - 1 ? {link: posts[postIndex + 1].slug, text:posts[postIndex+1].data.title} : undefined}
+  next={postIndex !== 0 ? {link: posts[postIndex - 1].slug, text:posts[postIndex-1].data.title} : undefined}
+  />
 </Layout>
